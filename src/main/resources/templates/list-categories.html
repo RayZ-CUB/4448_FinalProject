@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>All Categories</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<title>Home Page</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet"href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: linear-gradient(125deg,#2c3e50,#27ae60,#2980b9,#e74c3c,#8e44ad);
+			background-size: 500%;
+			animation: bgAnimation 15s linear infinite;
+		}
+		@keyframes bgAnimation {
+			0%{
+				background-position: 0% 50%;
+			}
+			50%{
+				background-position: 100% 50%;
+			}
+			100%{
+				background-position: 0% 50%;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-8">
+			<!--					<div class="jumbotron">-->
+			<div class="row">
+				<div class="card-body">
+					<div th:switch="${categories}" class="container my-5">
+						<p class="my-5">
+							<a href="/addCategory" class="btn btn-primary" style="background-color: #e74c3c; margin-left: 300px;">
+								<i class=" ml-2" style="font-style:normal">  Add Category </i></a>
+						</p>
+						<div class="col-md-12">
+							<h2 th:case="null">No record found !!</h2>
+							<div th:case="*">
+								<table class="table table-striped table-responsive-md">
+									<thead>
+									<tr>
+										<th>Category Name</th>
+										<th>Edit</th>
+										<th>Delete</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="category : ${categories}">
+										<td th:text="${category.name}"></td>
+										<td><a th:href="@{/updateCategory/{id}(id=${category.id})}" class="btn btn-primary"><i class="fas  ml-2"></i></a></td>
+										<td><a th:href="@{/remove-category/{id}(id=${category.id})}" class="btn btn-primary"><i class="fas  ml-2"></i></a></td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<nav th:fragment= "header" class="navbar navbar-expand-lg navbar-dark" style="color: #ffffff;">
+					<form th:action="@{/searchBook}" class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" name= "keyword" id = "keyword" type="text" placeholder="Search" aria-label="Search" th:value="${keyword}">
+						<input class="btn btn-outline-success active my-2 my-sm-0" type="submit" value="Search" style="background-color: aquamarine; color: white;"/>
+					</form>
+
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent" >
+
+						<ul class="navbar-nav mr-auto" >
+							<li class="nav-item active">
+								<a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="/categories">Categories </a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="/books">Books </a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="/regions">Regions </a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="/authors">Authors </a>
+							</li>
+						</ul>
+						<a class="navbar-brand">Library Management System</a>
+					</div>
+				</nav>
+			</div>
+			<!--					</div>-->
+		</div>
+	</div>
+</div>
+
+	<div th:insert="fragments/footer :: footer"></div>
+</body>
+
+</html>
