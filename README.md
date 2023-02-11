@@ -1,6 +1,6 @@
 # 4448_FinalProject
 
-Rui Zhang & Congke Zhao
+Rui Zhang
 SDK: java version "19.0.1"
 
 One you running the project, you need to visit"Localhost:9090".
